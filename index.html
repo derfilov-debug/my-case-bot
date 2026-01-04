@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette Case</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+    <div class="header">
+        <div class="balance-box">💰 <span id="balance">5000</span></div>
+    </div>
+
+    <div class="main-container">
+        <!-- Картинка самого кейса (твоя локальная) -->
+        <img src="img/cuberpunkcase.png" class="case-preview" alt="Case">
+        
+        <h2>CYBERPUNK CASE</h2>
+        <div class="price-tag">Цена: 1000 💰</div>
+
+        <!-- Окно рулетки -->
+        <div class="roulette-window">
+            <div class="center-line"></div> <!-- Красная палка по центру -->
+            <div class="roulette-track" id="track">
+                <!-- Сюда JS будет добавлять картинки -->
+            </div>
+        </div>
+
+        <button id="spinBtn" class="main-btn">ОТКРЫТЬ</button>
+    </div>
+
+    <!-- Всплывающее окно с выигрышем -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>ВЫПАЛ ПРЕДМЕТ!</h3>
+            <img id="winImage" src="" alt="Item">
+            <h2 id="winName">Название</h2>
+            <p>Цена предмета: <span id="winPrice" class="gold-text">0</span> 💰</p>
+            
+            <div class="modal-buttons">
+                <button id="btnSell" class="btn-sell">ПРОДАТЬ (+<span id="sellPrice">0</span>)</button>
+                <button id="btnKeep" class="btn-keep">ЗАБРАТЬ КЛЮЧ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
