@@ -3,14 +3,23 @@ body {
     color: white;
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    overflow-x: hidden; /* Чтобы не скроллилось пальцем */
+    overflow-x: hidden;
+    padding-bottom: 20px;
 }
 
+.hidden { display: none !important; }
+
+/* Шапка */
 .header {
     padding: 15px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     background: #1e1e24;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .balance-box {
@@ -19,147 +28,163 @@ body {
     border-radius: 20px;
     font-weight: bold;
     color: #ffd700;
+    border: 1px solid #444;
 }
 
-.main-container {
+.back-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.container {
     text-align: center;
-    padding-top: 20px;
+    padding: 20px;
+    animation: fadeIn 0.5s;
 }
 
-.case-preview {
-    width: 200px;
-    height: auto;
-    filter: drop-shadow(0 0 15px rgba(174, 0, 255, 0.5));
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.price-tag {
-    color: #888;
+/* --- СЕТКА КЕЙСОВ (МЕНЮ) --- */
+.app-title {
+    color: #ae00ff;
+    text-shadow: 0 0 15px rgba(174, 0, 255, 0.4);
     margin-bottom: 20px;
 }
 
-/* --- РУЛЕТКА --- */
+.cases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 кейса в ряд */
+    gap: 15px;
+}
+
+.case-card {
+    background: #1e1e24;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #333;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.case-card:active { transform: scale(0.95); }
+
+.case-card img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+}
+
+.case-title { font-size: 14px; margin: 10px 0 5px; }
+.case-price { color: #ffd700; font-weight: bold; font-size: 14px; }
+
+/* --- ЭКРАН ИГРЫ --- */
+.case-preview {
+    width: 180px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 20px rgba(174, 0, 255, 0.3));
+}
+
 .roulette-window {
     width: 100%;
     height: 120px;
-    background: #000;
+    background: #0b0b0d;
     position: relative;
-    overflow: hidden; /* Скрываем то, что вылезает за края */
-    border-top: 2px solid #ae00ff;
-    border-bottom: 2px solid #ae00ff;
-    margin-bottom: 30px;
+    overflow: hidden;
+    border-top: 3px solid #ae00ff;
+    border-bottom: 3px solid #ae00ff;
+    margin: 30px 0;
+    box-shadow: inset 0 0 20px black;
 }
 
 .center-line {
     position: absolute;
     left: 50%;
-    top: 0;
-    bottom: 0;
+    top: 0; bottom: 0;
     width: 4px;
-    background: yellow;
+    background: #ffd700;
     z-index: 10;
-    transform: translateX(-50%); /* Центрируем линию идеально */
-    box-shadow: 0 0 10px yellow;
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px #ffd700;
 }
 
 .roulette-track {
-    display: flex; /* Выстраиваем элементы в ряд */
+    display: flex;
     height: 100%;
     align-items: center;
-    transition: transform 5s cubic-bezier(0.1, 1, 0.1, 1); /* Плавное замедление */
-    /* Начальное положение немного сдвинуто, чтобы не было пустоты */
     transform: translateX(0px); 
+    /* WILL CHANGE IN JS */
 }
 
+/* Карточка внутри рулетки */
 .card {
     min-width: 100px;
     height: 100px;
-    margin: 0 5px;
-    background: #222;
+    margin: 0 4px;
+    background: #18181b;
     border-radius: 8px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom: 3px solid gray;
+    border-bottom: 4px solid #555;
+    position: relative;
 }
 
 .card img {
     width: 70px;
     height: 70px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
-/* Редкость предметов (цвета полосок) */
-.card.common { border-color: #b0c3d9; }
-.card.rare { border-color: #8847ff; }
-.card.legendary { border-color: #eb4b4b; }
+/* Цвета редкости */
+.card.common { border-color: #b0c3d9; box-shadow: inset 0 -10px 20px rgba(176, 195, 217, 0.1); }
+.card.rare { border-color: #8847ff; box-shadow: inset 0 -10px 20px rgba(136, 71, 255, 0.1); }
+.card.legendary { border-color: #caab05; box-shadow: inset 0 -10px 20px rgba(255, 215, 0, 0.2); background: radial-gradient(circle, #332b00, #18181b); }
 
-/* Кнопка */
 .main-btn {
-    padding: 15px 40px;
+    width: 100%;
+    padding: 18px;
     font-size: 20px;
-    background: linear-gradient(90deg, #ae00ff, #ff0055);
+    background: linear-gradient(90deg, #7b00ff, #c800ff);
     border: none;
     color: white;
-    border-radius: 30px;
+    border-radius: 15px;
     font-weight: bold;
-    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(123, 0, 255, 0.4);
 }
+.main-btn:disabled { background: #333; box-shadow: none; color: #777; }
 
-.main-btn:disabled {
-    background: #555;
-    cursor: not-allowed;
-}
-
-/* --- МОДАЛЬНОЕ ОКНО (ВЫИГРЫШ) --- */
-.hidden { display: none !important; }
-
+/* Модалка */
 .modal {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    z-index: 20;
+    background: rgba(0,0,0,0.95);
+    z-index: 200;
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.3s;
 }
-
 .modal-content {
     background: #1e1e24;
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
     text-align: center;
-    width: 80%;
-    border: 1px solid #444;
+    width: 85%;
+    border: 1px solid #ae00ff;
+    box-shadow: 0 0 50px rgba(174, 0, 255, 0.2);
 }
-
-.modal-content img {
-    width: 150px;
-    border-radius: 10px;
-    margin: 10px 0;
+.glow-bg {
+    background: radial-gradient(circle, rgba(174,0,255,0.2) 0%, rgba(0,0,0,0) 70%);
+    padding: 20px;
 }
-
-.modal-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 15px;
-}
-
-.btn-sell {
-    background: #ff9900;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: black;
-    font-weight: bold;
-}
-
-.btn-keep {
-    background: #444;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    color: white;
-}
+.modal-content img { width: 140px; }
+.win-title { color: #888; margin-bottom: 0; font-size: 14px; letter-spacing: 2px; }
+.gold-text { color: #ffd700; }
+.modal-buttons { margin-top: 20px; display: grid; gap: 10px; }
+.btn-sell { background: #ffd700; color: black; border: none; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%;}
+.btn-keep { background: transparent; color: white; border: 2px solid #333; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%;}
